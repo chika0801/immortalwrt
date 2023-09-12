@@ -1,0 +1,104 @@
+name: Redmi AX6000
+
+on:
+  workflow_dispatch:
+
+env:
+  REPO_URL: https://github.com/hanwckf/immortalwrt-mt798x.git
+  REPO_BRANCH: openwrt-21.02
+  CONFIG_FILE: AX6000.config
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v4
+
+    - name: apt update && apt upgrade
+      run: |
+        sudo apt update -y
+        sudo apt upgrade -y
+
+    - name: git clone
+      run: |
+        git clone -b ${{ env.REPO_BRANCH }} --depth 1 ${{ env.REPO_URL }} openwrt
+
+    - name: cache openwrt
+      uses: klever1988/cachewrtbuild@main
+      with:
+        ccache: 'true'
+        prefix: openwrt
+
+    - name: feeds update
+      run: |
+        cd openwrt
+        ./scripts/feeds update -a
+
+    - name: Update golang
+      run: |
+        cd openwrt
+        git clone --depth 1 https://github.com/immortalwrt/packages.git immortalwrt_packages
+        rm -r feeds/packages/lang/golang
+        cp -r immortalwrt_packages/lang/golang feeds/packages/lang/
+
+    - name: Update luci-app-ssr-plus
+      run: |
+        cd openwrt
+        rm -r feeds/luci/applications/luci-app-ssr-plus \
+              feeds/packages/net/chinadns-ng \
+              feeds/packages/net/dns2socks \
+              feeds/packages/net/dns2tcp \
+              feeds/packages/net/hysteria \
+              feeds/packages/net/ipt2socks \
+              feeds/packages/net/microsocks \
+              feeds/packages/net/naiveproxy \
+              feeds/packages/net/redsocks2 \
+              feeds/packages/net/shadowsocks-rust \
+              feeds/packages/net/shadowsocksr-libev \
+              feeds/packages/net/simple-obfs \
+              feeds/packages/net/tcping \
+              feeds/packages/net/trojan \
+              feeds/packages/net/tuic-client \
+              feeds/packages/net/v2ray-core \
+              feeds/packages/net/v2ray-geodata \
+              feeds/packages/net/v2ray-plugin \
+              feeds/packages/net/v2raya \
+              feeds/packages/net/xray-core \
+              feeds/packages/net/xray-plugin
+        git clone --depth 1 https://github.com/fw876/helloworld.git helloworld
+        cp -r helloworld/luci-app-ssr-plus feeds/luci/applications/
+        cp -r helloworld/* feeds/packages/net/
+
+    - name: feeds install
+      run: |
+        cd openwrt
+        ./scripts/feeds install -a
+
+    - name: Customized the .config file
+      run: |
+        [ -e $CONFIG_FILE ] && cp ${{ env.CONFIG_FILE }} openwrt/.config
+
+    - name: Customized openwrt configuration
+      run: |
+        cd openwrt
+        sed -i 's/192.168.1.1/192.168.10.1/g' package/base-files/files/bin/config_generate
+        sed -i 's#^root::0:0:99999:7:::#root:$1$O73yltLo$SBOqN9kzSHZA5EuKYWXmG/::0:99999:7:::#' package/base-files/files/etc/shadow
+
+    - name: Compile firmware
+      run: |
+        cd openwrt
+        make defconfig
+        make download -j8
+        make -j$(nproc) || make -j1
+
+    - name: Show firmware files
+      run: |
+        find openwrt/bin/targets/*/*/ -maxdepth 1 -type f -exec du -h {} \;
+
+    - name: Upload firmware files
+      uses: actions/upload-artifact@v3
+      with:
+        name: squashfs-sysupgrade.bin
+        path: openwrt/bin/targets/*/*/*-squashfs-sysupgrade.bin
