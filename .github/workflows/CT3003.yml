@@ -26,7 +26,7 @@ jobs:
         git clone -b ${{ env.REPO_BRANCH }} --depth 1 ${{ env.REPO_URL }} openwrt
 
     - name: cache openwrt
-      uses: klever1988/cachewrtbuild@main
+      uses: HiGarfield/cachewrtbuild@main
       with:
         ccache: 'true'
         prefix: openwrt
