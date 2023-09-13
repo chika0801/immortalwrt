@@ -101,4 +101,4 @@ jobs:
       uses: actions/upload-artifact@v3
       with:
         name: squashfs-sysupgrade.bin
-        path: openwrt/bin/targets/*/*/*-squashfs-sysupgrade.bin
+        path: openwrt/bin/targets/mediatek/mt7986/immortalwrt-mediatek-mt7986-xiaomi_redmi-router-ax6000-stock-squashfs-sysupgrade.bin
