@@ -16,16 +16,17 @@ jobs:
     - name: Checkout
       uses: actions/checkout@v4
 
-    - name: apt update && apt upgrade
-      run: |
-        sudo apt update -y
-        sudo apt upgrade -y
+    - name: apt update
+      run: sudo apt update -y
+
+    - name: apt upgrade
+      run: sudo apt upgrade -y
 
     - name: git clone
       run: |
         git clone -b ${{ env.REPO_BRANCH }} --depth 1 ${{ env.REPO_URL }} openwrt
 
-    - name: cache openwrt
+    - name: Cache openwrt builds
       uses: HiGarfield/cachewrtbuild@main
       with:
         ccache: 'true'
@@ -36,14 +37,14 @@ jobs:
         cd openwrt
         ./scripts/feeds update -a
 
-    - name: Update golang
+    - name: Upgrade golang
       run: |
         cd openwrt
         git clone --depth 1 https://github.com/immortalwrt/packages.git immortalwrt_packages
         rm -r feeds/packages/lang/golang
         cp -r immortalwrt_packages/lang/golang feeds/packages/lang/
 
-    - name: Update luci-app-ssr-plus
+    - name: Upgrade luci-app-ssr-plus
       run: |
         cd openwrt
         rm -r feeds/luci/applications/luci-app-ssr-plus \
@@ -76,11 +77,11 @@ jobs:
         cd openwrt
         ./scripts/feeds install -a
 
-    - name: Customized the .config file
+    - name: Replace the .config file
       run: |
         [ -e $CONFIG_FILE ] && cp ${{ env.CONFIG_FILE }} openwrt/.config
 
-    - name: Customized openwrt configuration
+    - name: Customize openwrt configuration
       run: |
         cd openwrt
         sed -i 's/192.168.1.1/192.168.10.1/g' package/base-files/files/bin/config_generate
