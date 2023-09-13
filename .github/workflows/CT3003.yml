@@ -4,8 +4,8 @@ on:
   workflow_dispatch:
 
 env:
-  REPO_URL: https://github.com/hanwckf/immortalwrt-mt798x.git
-  REPO_BRANCH: openwrt-21.02
+  REPO_URL: https://github.com/immortalwrt/immortalwrt.git
+  REPO_BRANCH: openwrt-23.05
   CONFIG_FILE: CT3003.config
 
 jobs:
@@ -36,41 +36,6 @@ jobs:
         cd openwrt
         ./scripts/feeds update -a
 
-    - name: Update golang
-      run: |
-        cd openwrt
-        git clone --depth 1 https://github.com/immortalwrt/packages.git immortalwrt_packages
-        rm -r feeds/packages/lang/golang
-        cp -r immortalwrt_packages/lang/golang feeds/packages/lang/
-
-    - name: Update luci-app-ssr-plus
-      run: |
-        cd openwrt
-        rm -r feeds/luci/applications/luci-app-ssr-plus \
-              feeds/packages/net/chinadns-ng \
-              feeds/packages/net/dns2socks \
-              feeds/packages/net/dns2tcp \
-              feeds/packages/net/hysteria \
-              feeds/packages/net/ipt2socks \
-              feeds/packages/net/microsocks \
-              feeds/packages/net/naiveproxy \
-              feeds/packages/net/redsocks2 \
-              feeds/packages/net/shadowsocks-rust \
-              feeds/packages/net/shadowsocksr-libev \
-              feeds/packages/net/simple-obfs \
-              feeds/packages/net/tcping \
-              feeds/packages/net/trojan \
-              feeds/packages/net/tuic-client \
-              feeds/packages/net/v2ray-core \
-              feeds/packages/net/v2ray-geodata \
-              feeds/packages/net/v2ray-plugin \
-              feeds/packages/net/v2raya \
-              feeds/packages/net/xray-core \
-              feeds/packages/net/xray-plugin
-        git clone --depth 1 https://github.com/fw876/helloworld.git helloworld
-        cp -r helloworld/luci-app-ssr-plus feeds/luci/applications/
-        cp -r helloworld/* feeds/packages/net/
-
     - name: feeds install
       run: |
         cd openwrt
@@ -84,7 +49,7 @@ jobs:
       run: |
         cd openwrt
         sed -i 's/192.168.1.1/192.168.10.1/g' package/base-files/files/bin/config_generate
-        sed -i 's#^root::0:0:99999:7:::#root:$1$O73yltLo$SBOqN9kzSHZA5EuKYWXmG/::0:99999:7:::#' package/base-files/files/etc/shadow
+        sed -i 's#^root:::0:99999:7:::#root:$1$O73yltLo$SBOqN9kzSHZA5EuKYWXmG/::0:99999:7:::#' package/base-files/files/etc/shadow
 
     - name: Compile firmware
       run: |
