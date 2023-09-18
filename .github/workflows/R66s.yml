@@ -45,6 +45,13 @@ jobs:
         cd openwrt
         ./scripts/feeds update -a
 
+    - name: Upgrade luci-theme-argon
+      run: |
+        cd openwrt
+        git clone -b 18.06 --depth 1 https://github.com/jerrykuku/luci-theme-argon.git luci-theme-argon
+        rm -r feeds/luci/themes/luci-theme-argon
+        cp -r luci-theme-argon feeds/luci/themes/
+
     - name: feeds install
       run: |
         cd openwrt
