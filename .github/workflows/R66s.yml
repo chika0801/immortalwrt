@@ -34,6 +34,7 @@ jobs:
         cd openwrt
         echo -e 'src-git app_ssrp https://github.com/fw876/helloworld.git' >> feeds.conf.default
         echo -e 'src-git app_passwall https://github.com/xiaorouji/openwrt-passwall.git' >> feeds.conf.default
+        echo -e 'src-git app_passwall_packages https://github.com/xiaorouji/openwrt-passwall-packages.git' >> feeds.conf.default
 
     - name: Cache openwrt builds
       uses: HiGarfield/cachewrtbuild@main
