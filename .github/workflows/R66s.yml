@@ -27,7 +27,7 @@ jobs:
 
     - name: git clone
       run: |
-        git clone -b ${{ env.REPO_BRANCH }} ${{ env.REPO_URL }} openwrt
+        git clone -b ${{ env.REPO_BRANCH }} --depth 1 ${{ env.REPO_URL }} openwrt
 
     - name: Update feeds.conf
       run: |
