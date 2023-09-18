@@ -67,4 +67,6 @@ jobs:
       uses: actions/upload-artifact@v3
       with:
         name: squashfs-sysupgrade.bin
-        path: openwrt/bin/targets/mediatek/filogic/immortalwrt-mediatek-filogic-cetron_ct3003-ubootmod-squashfs-sysupgrade.bin
+        path: |
+          openwrt/bin/targets/mediatek/filogic/immortalwrt-mediatek-filogic-cetron_ct3003-ubootmod-squashfs-factory.bin
+          openwrt/bin/targets/mediatek/filogic/immortalwrt-mediatek-filogic-cetron_ct3003-ubootmod-squashfs-sysupgrade.bin
