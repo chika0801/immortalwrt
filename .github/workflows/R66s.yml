@@ -64,4 +64,5 @@ jobs:
       uses: actions/upload-artifact@v3
       with:
         name: squashfs-sysupgrade.bin
-        path: openwrt/bin/targets/rockchip/armv8/immortalwrt-rockchip-armv8-lunzn_fastrhino-r66s-squashfs-sysupgrade.img.gz
+        path: |
+          openwrt/bin/targets/rockchip/armv8/immortalwrt-rockchip-armv8-lunzn_fastrhino-r66s-squashfs-sysupgrade.img.gz
