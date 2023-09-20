@@ -17,13 +17,13 @@ jobs:
       uses: actions/checkout@v4
 
     - name: apt update
-      run: sudo apt update -y
+      run: sudo -E apt-get update -y
 
     - name: apt upgrade
-      run: sudo apt upgrade -y
+      run: sudo -E apt-get upgrade -y
 
     - name: apt install
-      run: sudo apt install -y python3-pyelftools
+      run: sudo -E apt-get install -y python3-pyelftools
 
     - name: git clone
       run: |
