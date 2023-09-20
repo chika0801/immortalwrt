@@ -33,9 +33,21 @@ luci-app-cpufreq
 luci-app-firewall
 luci-app-opkg
 luci-app-passwall
+    |Include Haproxy
+    |Include Hysteria
+    |Include NaiveProxy
+    |Include Shadowsocks Libev Server
+    |Include Sing-Box
+    |Include tuic-client
+    |Include IPT2Socks
+    |Include Xray
 luci-app-ssr-plus
     |V2ray-core Selection (Xray-core)
     |Include ChinaDNS-NG
+luci-app-turboacc
+    |Include Flow Offload
+    |Include BBR CCA
+    |Include Pdnsd
 luci-theme-argon
 luci-theme-bootstrap
 ```
