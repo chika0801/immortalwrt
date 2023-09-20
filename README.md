@@ -40,7 +40,6 @@ luci-app-passwall
     |Include Sing-Box
     |Include tuic-client
     |Include IPT2Socks
-    |Include Xray
 luci-app-ssr-plus
     |V2ray-core Selection (Xray-core)
     |Include ChinaDNS-NG
