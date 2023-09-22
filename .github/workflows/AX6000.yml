@@ -26,6 +26,12 @@ jobs:
       run: |
         git clone -b ${{ env.REPO_BRANCH }} ${{ env.REPO_URL }} openwrt
 
+    - name: Cache openwrt builds
+      uses: HiGarfield/cachewrtbuild@main
+      with:
+        ccache: 'true'
+        prefix: openwrt
+
     - name: feeds update
       run: |
         cd openwrt
