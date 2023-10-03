@@ -1,4 +1,4 @@
-name: Redmi AX6000
+name: AX6000
 
 on:
   workflow_dispatch:
