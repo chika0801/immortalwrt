@@ -1,4 +1,4 @@
-name: Cetron CT3003
+name: CT3003
 
 on:
   workflow_dispatch:
