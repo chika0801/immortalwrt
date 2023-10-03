@@ -94,6 +94,11 @@ jobs:
         make download -j8
         make -j$(nproc) || make -j1
 
+    - name: Check space usage
+      if: (!cancelled())
+      run: |
+        df -hT
+
     - name: List firmware files
       run: |
         find openwrt/bin/targets/*/*/ -maxdepth 1 -type f -exec du -h {} \;
