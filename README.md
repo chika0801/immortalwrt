@@ -9,8 +9,9 @@ luci-app-firewall
 luci-app-mtk
 luci-app-opkg
 luci-app-ssr-plus
-    |Include Xray
+    |V2ray-core Selection (Xray-core)
     |Include ChinaDNS-NG
+    |Include MosDNS
 luci-app-turboacc-mtk
 luci-theme-argon
 luci-theme-bootstrap
@@ -23,6 +24,7 @@ luci-app-opkg
 luci-app-ssr-plus
     |V2ray-core Selection (Xray-core)
     |Include ChinaDNS-NG
+    |Include MosDNS
 luci-theme-argon
 luci-theme-bootstrap
 ```
