@@ -32,6 +32,11 @@ jobs:
         ccache: 'true'
         prefix: openwrt
 
+    - name: Upgrade feeds.conf.default
+      run: |
+        cd openwrt
+        echo 'src-git helloworld https://github.com/fw876/helloworld;main' >> feeds.conf.default
+
     - name: feeds update
       run: |
         cd openwrt
