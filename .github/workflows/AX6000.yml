@@ -51,7 +51,7 @@ jobs:
         cd openwrt/feeds/packages/net/
         rm -r chinadns-ng dns2socks dns2tcp hysteria ipt2socks microsocks naiveproxy redsocks2 shadowsocks-rust shadowsocksr-libev simple-obfs tcping trojan tuic-client v2ray-core v2ray-geodata v2ray-plugin v2raya xray-core xray-plugin
         cd ${{ github.workspace }}/openwrt
-        git clone --depth 1 -b main https://github.com/fw876/helloworld.git helloworld
+        git clone --depth 1 -b master https://github.com/fw876/helloworld.git helloworld
         cp -r helloworld/luci-app-ssr-plus feeds/luci/applications/
         cp -r helloworld/* feeds/packages/net/
         rm -r helloworld
