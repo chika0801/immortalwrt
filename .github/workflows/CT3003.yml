@@ -35,7 +35,7 @@ jobs:
     - name: Upgrade feeds.conf.default
       run: |
         cd openwrt
-        echo 'src-git helloworld https://github.com/fw876/helloworld;main' >> feeds.conf.default
+        echo 'src-git helloworld https://github.com/fw876/helloworld;master' >> feeds.conf.default
 
     - name: feeds update
       run: |
