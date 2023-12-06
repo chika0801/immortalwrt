@@ -62,7 +62,7 @@ jobs:
         cd openwrt
         make defconfig
         make download -j8
-        make -j$(nproc) || make -j1
+        make -j$(nproc) || make -j1 || make -j1 V=s
 
     - name: Check space usage
       if: (!cancelled())
