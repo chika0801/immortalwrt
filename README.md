@@ -4,6 +4,7 @@
 
 **Redmi AX6000**
 ```
+luci-app-eqos-mtk
 luci-app-filetransfer
 luci-app-firewall
 luci-app-mtk
