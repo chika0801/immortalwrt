@@ -45,6 +45,14 @@ jobs:
         cp -r immortalwrt_packages/lang/golang feeds/packages/lang/
         rm -r immortalwrt_packages
 
+    - name: Upgrade luci-theme-argon
+      run: |
+        cd openwrt
+        rm -r feeds/luci/themes/luci-theme-argon
+        git clone --depth 1 https://github.com/jerrykuku/luci-theme-argon.git luci-theme-argon
+        cp -r luci-theme-argon feeds/luci/themes/
+        rm -r luci-theme-argon
+
     - name: Upgrade luci-app-ssr-plus
       run: |
         cd openwrt
