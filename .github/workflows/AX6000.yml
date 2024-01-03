@@ -47,9 +47,9 @@ jobs:
 
     - name: Upgrade luci-app-ssr-plus
       run: |
-        rm -r openwrt/feeds/packages/net/xray-core
-        rm -r openwrt/feeds/luci/applications/luci-app-ssr-plus
         cd openwrt
+        rm -r feeds/packages/net/xray-core
+        rm -r feeds/luci/applications/luci-app-ssr-plus
         git clone --depth 1 -b master https://github.com/fw876/helloworld.git helloworld
         cp -r helloworld/xray-core feeds/packages/net/
         rm -r helloworld
