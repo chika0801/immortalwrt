@@ -47,13 +47,14 @@ jobs:
 
     - name: Upgrade luci-app-ssr-plus
       run: |
+        rm -r openwrt/feeds/packages/net/xray-core
         rm -r openwrt/feeds/luci/applications/luci-app-ssr-plus
-        cd openwrt/feeds/packages/net/
-        rm -r chinadns-ng dns2socks dns2tcp hysteria ipt2socks microsocks naiveproxy redsocks2 shadowsocks-rust shadowsocksr-libev simple-obfs tcping trojan tuic-client v2ray-core v2ray-geodata v2ray-plugin v2raya xray-core xray-plugin
-        cd ${{ github.workspace }}/openwrt
-        git clone --depth 1 -b master https://github.com/chika0801/helloworld.git helloworld
+        cd openwrt
+        git clone --depth 1 -b master https://github.com/fw876/helloworld.git helloworld
+        cp -r helloworld/xray-core feeds/packages/net/
+        rm -r helloworld
+        git clone --depth 1 -b custom https://github.com/chika0801/helloworld.git helloworld
         cp -r helloworld/luci-app-ssr-plus feeds/luci/applications/
-        cp -r helloworld/* feeds/packages/net/
         rm -r helloworld
 
     - name: feeds install
