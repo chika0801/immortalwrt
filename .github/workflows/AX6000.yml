@@ -53,7 +53,7 @@ jobs:
         git clone --depth 1 -b master https://github.com/fw876/helloworld.git helloworld
         cp -r helloworld/xray-core feeds/packages/net/
         rm -r helloworld
-        git clone --depth 1 -b custom https://github.com/chika0801/helloworld.git helloworld
+        git clone --depth 1 -b master https://github.com/chika0801/helloworld.git helloworld
         cp -r helloworld/luci-app-ssr-plus feeds/luci/applications/
         rm -r helloworld
 
