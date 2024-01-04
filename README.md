@@ -6,7 +6,7 @@
 ```
 luci-app-filetransfer
 luci-app-firewall
-luci-app-mtk
+luci-app-mtwifi-cfg
 luci-app-opkg
 luci-app-ssr-plus
     |V2ray-core Selection (Xray-core)
