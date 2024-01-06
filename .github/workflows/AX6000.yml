@@ -58,10 +58,10 @@ jobs:
         cd openwrt
         rm -r feeds/packages/net/xray-core
         rm -r feeds/luci/applications/luci-app-ssr-plus
-        git clone --depth 1 -b test https://github.com/chika0801/helloworld.git helloworld
+        git clone --depth 1 -b test-2 https://github.com/chika0801/helloworld.git helloworld
         cp -r helloworld/xray-core feeds/packages/net/
         rm -r helloworld
-        git clone --depth 1 -b test https://github.com/chika0801/helloworld.git helloworld
+        git clone --depth 1 -b test-2 https://github.com/chika0801/helloworld.git helloworld
         cp -r helloworld/luci-app-ssr-plus feeds/luci/applications/
         rm -r helloworld
 
