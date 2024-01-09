@@ -12,7 +12,6 @@ luci-app-ssr-plus
     |V2ray-core Selection (Xray-core)
     |Include ChinaDNS-NG
     |Include MosDNS
-    |Include Hysteria
 luci-app-turboacc-mtk
 luci-theme-argon
 luci-theme-bootstrap
