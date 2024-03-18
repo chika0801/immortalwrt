@@ -58,10 +58,8 @@ jobs:
         cd openwrt
         rm -r feeds/packages/net/xray-core
         rm -r feeds/luci/applications/luci-app-ssr-plus
-        git clone --depth 1 -b master https://github.com/fw876/helloworld.git helloworld
+        git clone --depth 1 -b main https://github.com/chika0801/helloworld.git helloworld
         cp -r helloworld/xray-core feeds/packages/net/
-        rm -r helloworld
-        git clone --depth 1 -b master https://github.com/fw876/helloworld.git helloworld
         cp -r helloworld/luci-app-ssr-plus feeds/luci/applications/
         rm -r helloworld
 
@@ -85,7 +83,7 @@ jobs:
         cd openwrt
         make defconfig
         make download -j8
-        make -j$(nproc) || make -j1 || make -j1 V=s
+        make -j$(nproc) || make -j1 V=s
 
     - name: Check space usage
       if: (!cancelled())
@@ -97,7 +95,7 @@ jobs:
         find openwrt/bin/targets/*/*/ -maxdepth 1 -type f -exec du -h {} \;
 
     - name: Upload firmware files
-      uses: actions/upload-artifact@v3
+      uses: actions/upload-artifact@v4
       with:
         name: squashfs-sysupgrade.bin
         path: |
