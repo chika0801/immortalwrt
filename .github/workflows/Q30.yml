@@ -4,8 +4,8 @@ on:
   workflow_dispatch:
 
 env:
-  REPO_URL: https://github.com/immortalwrt/immortalwrt.git
-  REPO_BRANCH: openwrt-23.05
+  REPO_URL: https://github.com/hanwckf/immortalwrt-mt798x.git
+  REPO_BRANCH: openwrt-21.02
   CONFIG_FILE: Q30.config
 
 jobs:
@@ -32,15 +32,36 @@ jobs:
         ccache: 'true'
         prefix: openwrt
 
-    - name: Upgrade feeds.conf.default
-      run: |
-        cd openwrt
-        echo 'src-git helloworld https://github.com/fw876/helloworld;master' >> feeds.conf.default
-
     - name: feeds update
       run: |
         cd openwrt
         ./scripts/feeds update -a
+
+    - name: Upgrade golang
+      run: |
+        cd openwrt
+        git clone --depth 1 https://github.com/immortalwrt/packages.git immortalwrt_packages
+        rm -r feeds/packages/lang/golang
+        cp -r immortalwrt_packages/lang/golang feeds/packages/lang/
+        rm -r immortalwrt_packages
+
+    - name: Upgrade luci-theme-argon
+      run: |
+        cd openwrt
+        rm -r feeds/luci/themes/luci-theme-argon
+        git clone --depth 1 https://github.com/jerrykuku/luci-theme-argon.git luci-theme-argon
+        cp -r luci-theme-argon feeds/luci/themes/
+        rm -r luci-theme-argon
+
+    - name: Upgrade luci-app-ssr-plus
+      run: |
+        cd openwrt
+        rm -r feeds/packages/net/xray-core
+        rm -r feeds/luci/applications/luci-app-ssr-plus
+        git clone --depth 1 -b master https://github.com/chika0801/helloworld.git helloworld
+        cp -r helloworld/xray-core feeds/packages/net/
+        cp -r helloworld/luci-app-ssr-plus feeds/luci/applications/
+        rm -r helloworld
 
     - name: feeds install
       run: |
@@ -55,14 +76,14 @@ jobs:
       run: |
         cd openwrt
         sed -i 's/192.168.1.1/192.168.10.1/g' package/base-files/files/bin/config_generate
-        sed -i 's#^root:::0:99999:7:::#root:$1$O73yltLo$SBOqN9kzSHZA5EuKYWXmG/::0:99999:7:::#' package/base-files/files/etc/shadow
+        sed -i 's#^root::0:0:99999:7:::#root:$1$O73yltLo$SBOqN9kzSHZA5EuKYWXmG/::0:99999:7:::#' package/base-files/files/etc/shadow
 
     - name: Compile firmware
       run: |
         cd openwrt
         make defconfig
         make download -j8
-        make -j$(nproc) || make -j1 || make -j1 V=s
+        make -j$(nproc) || make -j1 V=s
 
     - name: Check space usage
       if: (!cancelled())
@@ -74,8 +95,8 @@ jobs:
         find openwrt/bin/targets/*/*/ -maxdepth 1 -type f -exec du -h {} \;
 
     - name: Upload firmware files
-      uses: actions/upload-artifact@v3
+      uses: actions/upload-artifact@v4
       with:
         name: squashfs-sysupgrade.bin
         path: |
-          openwrt/bin/targets/mediatek/filogic/immortalwrt-mediatek-filogic-cetron_ct3003-ubootmod-squashfs-sysupgrade.bin
+          openwrt/bin/targets/mediatek/mt7981/immortalwrt-mediatek-mt7981-jcg_q30-squashfs-sysupgrade.bin
