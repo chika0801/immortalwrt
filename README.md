@@ -16,7 +16,7 @@ luci-theme-argon
 luci-theme-bootstrap
 ```
 
-**JCG Q30 Pro**
+**JCG Q30**
 ```
 luci-app-firewall
 luci-app-homeproxy
