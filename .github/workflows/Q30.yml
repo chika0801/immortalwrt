@@ -99,4 +99,4 @@ jobs:
       with:
         name: squashfs-sysupgrade.bin
         path: |
-          openwrt/bin/targets/mediatek/mt7981/immortalwrt-mediatek-mt7981-jcg_q30-squashfs-sysupgrade.bin
+          openwrt/bin/targets/mediatek/filogic/immortalwrt-mediatek-filogic-jcg_q30-ubootmod-squashfs-sysupgrade.bin
